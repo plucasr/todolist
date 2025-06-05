@@ -1,9 +1,16 @@
 "use client"
 import React, { useState, KeyboardEvent, ChangeEvent } from 'react';
-import { Task } from '../../../types/task';
 import { Checkbox } from '../../atoms/Checkbox/Checkbox';
 import { Input } from '../../atoms/Input/Input';
 import styles from './TaskItem.module.scss';
+
+export interface Task {
+  id: string;
+  title: string;
+  description: string;
+  completed: boolean;
+  status: 'pending' | 'in-progress' | 'completed';
+}
 
 interface TaskItemProps {
   task: Task;

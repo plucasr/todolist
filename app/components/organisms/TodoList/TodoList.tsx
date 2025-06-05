@@ -1,93 +1,101 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import { Task } from '../../../types/task';
-import { TaskItem } from '../../molecules/TaskItem/TaskItem';
-import { Box } from '../../atoms/Box/Box';
-import styles from './TodoList.module.scss';
+"use client";
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import { TaskItem, Task } from "../../molecules/TaskItem/TaskItem";
+import { Input } from "../../atoms/Input/Input";
+import { Textarea } from "../../atoms/Textarea/Textarea";
+import styles from "./TodoList.module.scss";
+import { Box } from "../../atoms/Box/Box";
+import useLocalStorageState from '../../../hooks/useLocalStorageState';
 
 const STORAGE_KEY = 'todo-tasks';
 
 export const TodoList: React.FC = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [newTask, setNewTask] = useState({ title: '', description: '' });
+  const [tasks, setTasks] = useLocalStorageState<Task[]>(STORAGE_KEY, []);
+  const [newTask, setNewTask] = useState<Pick<Task, "title" | "description">>({
+    title: "",
+    description: "",
+  });
 
-  useEffect(() => {
-    const savedTasks = localStorage.getItem(STORAGE_KEY);
-    if (savedTasks) {
-      setTasks(JSON.parse(savedTasks));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-  }, [tasks]);
-
-  const handleAddTask = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newTask.title.trim()) return;
-
-    const task: Task = {
-      id: Date.now().toString(),
-      title: newTask.title,
-      description: newTask.description,
-      status: 'pending'
-    };
-
-    setTasks([...tasks, task]);
-    setNewTask({ title: '', description: '' });
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setNewTask((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const handleStatusChange = (id: string, status: Task['status']) => {
-    setTasks(tasks.map(task => 
-      task.id === id ? { ...task, status } : task
-    ));
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (newTask.title.trim()) {
+      const task: Task = {
+        id: Date.now().toString(),
+        title: newTask.title,
+        description: newTask.description,
+        completed: false,
+        status: "pending",
+      };
+      setTasks((prev: Task[]) => [...prev, task]);
+      setNewTask({ title: "", description: "" });
+    }
+  };
+
+  const handleStatusChange = (id: string, status: Task["status"]) => {
+    setTasks((prev: Task[]) =>
+      prev.map((task: Task) =>
+        task.id === id
+          ? { ...task, status, completed: status === "completed" }
+          : task
+      )
+    );
   };
 
   const handleDeleteTask = (id: string) => {
-    setTasks(tasks.filter(task => task.id !== id));
+    setTasks((prev: Task[]) => prev.filter((task: Task) => task.id !== id));
   };
 
   const handleEditTask = (id: string, title: string, description: string) => {
-    setTasks(tasks.map(task =>
-      task.id === id ? { ...task, title, description } : task
-    ));
+    setTasks((prev: Task[]) =>
+      prev.map((task: Task) =>
+        task.id === id ? { ...task, title, description } : task
+      )
+    );
   };
 
   return (
-    <Box variant="elevated" padding="large" maxWidth="800px" className={styles.todoList}>
-      <Box variant="outlined" padding="medium" className={styles.addTaskForm}>
-        <form onSubmit={handleAddTask}>
-          <input
-            type="text"
+    <div className={styles.todoList}>
+      <Box>
+        <form onSubmit={handleSubmit} className={styles.addTaskForm}>
+          <Input
+            name="title"
             value={newTask.title}
-            onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-            placeholder="Task title"
-            className={styles.input}
+            onChange={handleInputChange}
+            placeholder="Add a new task..."
+            required
           />
-          <input
-            type="text"
+          <Textarea
+            name="description"
             value={newTask.description}
-            onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-            placeholder="Task description"
-            className={styles.input}
+            onChange={handleInputChange}
+            placeholder="Add a description..."
           />
           <button type="submit" className={styles.addButton}>
             Add Task
           </button>
         </form>
+        <div className={styles.tasks}>
+          {tasks.map((task: Task) => (
+            <TaskItem
+              key={task.id}
+              task={task}
+              onStatusChange={handleStatusChange}
+              onDelete={handleDeleteTask}
+              onEdit={handleEditTask}
+            />
+          ))}
+        </div>
       </Box>
-
-      <Box variant="default" padding="medium" className={styles.tasks}>
-        {tasks.map(task => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onStatusChange={handleStatusChange}
-            onDelete={handleDeleteTask}
-            onEdit={handleEditTask}
-          />
-        ))}
-      </Box>
-    </Box>
+    </div>
   );
-}; 
+};
