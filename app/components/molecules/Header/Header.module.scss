@@ -1,0 +1,11 @@
+@use '../../../styles/variables' as *;
+
+.header {
+  padding: 2rem 0;
+  text-align: center;
+  
+  .logo {
+    height: auto;
+    max-width: 100%;
+  }
+} 

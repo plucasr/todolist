@@ -1,0 +1,61 @@
+@use '../../../styles/variables' as *;
+
+.box {
+  background-color: white;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+
+  // Padding variants
+  &.padding-none {
+    padding: 0;
+  }
+
+  &.padding-small {
+    padding: 1rem;
+  }
+
+  &.padding-medium {
+    padding: 1.5rem;
+  }
+
+  &.padding-large {
+    padding: 2rem;
+  }
+
+  // Margin variants
+  &.margin-none {
+    margin: 0;
+  }
+
+  &.margin-small {
+    margin: 1rem;
+  }
+
+  &.margin-medium {
+    margin: 1.5rem;
+  }
+
+  &.margin-large {
+    margin: 2rem;
+  }
+
+  // Visual variants
+  &.default {
+    background-color: white;
+  }
+
+  &.elevated {
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &.outlined {
+    background-color: white;
+    border: 1px solid rgba($secondary-color, 0.2);
+  }
+
+  // Width variants
+  &.fullWidth {
+    width: 100%;
+  }
+} 

@@ -1,0 +1,104 @@
+@use 'sass:color';
+@use '../../../styles/_variables' as *;
+
+.taskItem {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+
+  &.completed {
+    opacity: 0.7;
+    
+    .title {
+      text-decoration: line-through;
+      color: $secondary-color;
+    }
+  }
+}
+
+.taskContent {
+  flex: 1;
+}
+
+.title {
+  margin: 0 0 0.5rem 0;
+  color: $text-color;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.description {
+  margin: 0;
+  color: $secondary-color;
+  font-size: 0.9rem;
+}
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.editInput {
+  padding: 0.5rem;
+  border: 1px solid $secondary-color;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+  }
+}
+
+.taskActions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.editButton,
+.deleteButton {
+  background: none;
+  border: none;
+  color: $secondary-color;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba($secondary-color, 0.1);
+    color: color.scale($secondary-color, $lightness: -10%);
+  }
+}
+
+.editButton {
+  font-size: 1rem;
+}
+
+.statusSelect {
+  padding: 0.5rem;
+  border: 1px solid $secondary-color;
+  border-radius: 4px;
+  background-color: white;
+  color: $text-color;
+  font-size: 0.9rem;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+  }
+} 

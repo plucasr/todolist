@@ -1,0 +1,53 @@
+@use 'sass:color';
+@use '../../../styles/variables' as *;
+
+.todoList {
+  margin: 2rem auto;
+}
+
+.addTaskForm {
+  margin-bottom: 2rem;
+
+  form {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+}
+
+.input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.75rem;
+  border: 1px solid $secondary-color;
+  border-radius: 4px;
+  font-size: 1rem;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+  }
+}
+
+.addButton {
+  padding: 0.75rem 1.5rem;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: color.scale($primary-color, $lightness: -10%);
+  }
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  padding: 0!important;
+  gap: 1rem;
+  margin-top: 1rem!important;
+} 
