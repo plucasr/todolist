@@ -5,6 +5,7 @@ import { Input } from "../../atoms/Input/Input";
 import { Textarea } from "../../atoms/Textarea/Textarea";
 import styles from "./TodoList.module.scss";
 import { Box } from "../../atoms/Box/Box";
+import { Button } from "../../atoms/Button/Button";
 import useLocalStorageState from '../../../hooks/useLocalStorageState';
 
 const STORAGE_KEY = 'todo-tasks';
@@ -65,7 +66,7 @@ export const TodoList: React.FC = () => {
 
   return (
     <div className={styles.todoList}>
-      <Box>
+      <Box variant="elevated" padding="large" maxWidth="md">
         <form onSubmit={handleSubmit} className={styles.addTaskForm}>
           <Input
             name="title"
@@ -80,9 +81,9 @@ export const TodoList: React.FC = () => {
             onChange={handleInputChange}
             placeholder="Add a description..."
           />
-          <button type="submit" className={styles.addButton}>
+          <Button type="submit" fullWidth>
             Add Task
-          </button>
+          </Button>
         </form>
         <div className={styles.tasks}>
           {tasks.map((task: Task) => (

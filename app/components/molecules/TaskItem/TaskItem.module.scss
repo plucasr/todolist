@@ -1,49 +1,69 @@
 @use 'sass:color';
 @use '../../../styles/_variables' as *;
 
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .taskItem {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  transition: all 0.3s ease;
+  padding: $spacing-md;
+  background-color: $background-primary;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  transition: all $transition-slow;
+  animation: slideIn 1s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
 
   &.completed {
     opacity: 0.7;
-    
+    background-color: $background-secondary;
+
     .title {
       text-decoration: line-through;
-      color: $secondary-color;
+      color: $text-secondary;
     }
   }
 }
 
 .taskContent {
   flex: 1;
+  margin-right: $spacing-md;
 }
 
 .title {
-  margin: 0 0 0.5rem 0;
-  color: $text-color;
-  font-size: 1.1rem;
-  transition: all 0.2s ease;
+  font-size: $font-size-lg;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: $spacing-xs;
 }
 
 .description {
-  margin: 0;
-  color: $secondary-color;
-  font-size: 0.9rem;
+  font-size: $font-size-md;
+  color: $text-secondary;
+  margin-bottom: $spacing-sm;
 }
 
 .editForm {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: $spacing-sm;
   width: 100%;
 }
 
@@ -62,30 +82,28 @@
 
 .taskActions {
   display: flex;
-  gap: 0.5rem;
+  gap: $spacing-sm;
   align-items: center;
-  justify-content: center;
 }
 
 .editButton,
 .deleteButton {
   background: none;
   border: none;
-  color: $secondary-color;
-  font-size: 1.2rem;
+  font-size: $font-size-lg;
   cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  padding: $spacing-xs;
+  color: $secondary-color;
+  transition: color $transition-fast;
+  line-height: 1;
 
   &:hover {
-    background-color: rgba($secondary-color, 0.1);
     color: color.scale($secondary-color, $lightness: -10%);
   }
 }
 
-.editButton {
-  font-size: 1rem;
+.deleteButton {
+  font-size: $font-size-xl;
 }
 
 .statusSelect {

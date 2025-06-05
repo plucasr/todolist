@@ -1,9 +1,12 @@
-@use '../../../styles/variables' as *;
+@use 'sass:color';
+@use '../../../styles/_variables' as *;
 
 .box {
-  background-color: white;
-  border-radius: 8px;
-  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 100%;
+  background-color: $background-primary;
+  border-radius: $border-radius;
+  transition: all $transition-fast;
 
   // Padding variants
   &.padding-none {
@@ -11,15 +14,15 @@
   }
 
   &.padding-small {
-    padding: 1rem;
+    padding: $spacing-sm;
   }
 
   &.padding-medium {
-    padding: 1.5rem;
+    padding: $spacing-md;
   }
 
   &.padding-large {
-    padding: 2rem;
+    padding: $spacing-lg;
   }
 
   // Margin variants
@@ -41,21 +44,59 @@
 
   // Visual variants
   &.default {
-    background-color: white;
+    background-color: transparent;
   }
 
   &.elevated {
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: $shadow-md;
   }
 
   &.outlined {
-    background-color: white;
-    border: 1px solid rgba($secondary-color, 0.2);
+    border: 1px solid $border-color;
   }
 
   // Width variants
   &.fullWidth {
     width: 100%;
+  }
+}
+
+// Responsive max-width
+.maxWidth {
+  &-sm {
+    max-width: 640px;
+  }
+
+  &-md {
+    max-width: 768px;
+  }
+
+  &-lg {
+    max-width: 1024px;
+  }
+
+  &-xl {
+    max-width: 1280px;
+  }
+
+  &-2xl {
+    max-width: 1536px;
+  }
+}
+
+// Responsive breakpoints
+@media (max-width: 640px) {
+  .padding {
+    &-small {
+      padding: $spacing-xs;
+    }
+
+    &-medium {
+      padding: $spacing-sm;
+    }
+
+    &-large {
+      padding: $spacing-md;
+    }
   }
 } 

@@ -1,39 +1,31 @@
+"use client"
 import React from 'react';
 import styles from './Box.module.scss';
 
 interface BoxProps {
-  children: React.ReactNode;
-  className?: string;
-  padding?: 'none' | 'small' | 'medium' | 'large';
-  margin?: 'none' | 'small' | 'medium' | 'large';
   variant?: 'default' | 'elevated' | 'outlined';
-  maxWidth?: string;
-  fullWidth?: boolean;
+  padding?: 'small' | 'medium' | 'large';
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  className?: string;
+  children: React.ReactNode;
 }
 
 export const Box: React.FC<BoxProps> = ({
-  children,
-  className = '',
-  padding = 'medium',
-  margin = 'none',
   variant = 'default',
+  padding,
   maxWidth,
-  fullWidth = false,
+  className,
+  children,
 }) => {
   const boxClasses = [
     styles.box,
-    styles[`padding-${padding}`],
-    styles[`margin-${margin}`],
     styles[variant],
-    fullWidth ? styles.fullWidth : '',
+    padding && styles[`padding-${padding}`],
+    maxWidth && styles[`maxWidth-${maxWidth}`],
     className,
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
-  const style = maxWidth ? { maxWidth } : undefined;
-
-  return (
-    <div className={boxClasses} style={style}>
-      {children}
-    </div>
-  );
+  return <div className={boxClasses}>{children}</div>;
 }; 

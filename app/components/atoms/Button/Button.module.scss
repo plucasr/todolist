@@ -1,28 +1,72 @@
 @use 'sass:color';
-@use '../../../styles/variables' as *;
+@use '../../../styles/_variables' as *;
 
 .button {
-  @include button-base;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  
-  &.primary {
-    background-color: $primary-color;
-    color: white;
-    
-    &:hover {
-      background-color: color.scale($primary-color, $lightness: -10%);
-    }
+  justify-content: center;
+  padding: $spacing-md $spacing-xl;
+  font-size: $font-size-md;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: $border-radius-lg;
+  cursor: pointer;
+  transition: all $transition-fast;
+  font-family: $font-family;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
-  
-  &.secondary {
-    background-color: transparent;
-    border: 1px solid $secondary-color;
-    color: $secondary-color;
-    
-    &:hover {
-      background-color: rgba($secondary-color, 0.1);
-    }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px color.scale($primary-color, $alpha: -80%);
   }
+}
+
+.primary {
+  color: white;
+  background-color: $primary-color;
+
+  &:hover:not(:disabled) {
+    background-color: color.scale($primary-color, $lightness: -10%);
+  }
+
+  &:active:not(:disabled) {
+    background-color: color.scale($primary-color, $lightness: -15%);
+  }
+}
+
+.secondary {
+  color: $text-primary;
+  background-color: $background-secondary;
+
+  &:hover:not(:disabled) {
+    background-color: color.scale($background-secondary, $lightness: -5%);
+  }
+
+  &:active:not(:disabled) {
+    background-color: color.scale($background-secondary, $lightness: -10%);
+  }
+}
+
+.danger {
+  color: white;
+  background-color: $error-color;
+
+  &:hover:not(:disabled) {
+    background-color: color.scale($error-color, $lightness: -10%);
+  }
+
+  &:active:not(:disabled) {
+    background-color: color.scale($error-color, $lightness: -15%);
+  }
+}
+
+.fullWidth {
+  width: 100%;
 } 

@@ -1,33 +1,25 @@
+"use client"
 import React from 'react';
 import styles from './Button.module.scss';
 
-interface ButtonProps {
-  variant?: 'primary' | 'secondary';
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'danger';
+  fullWidth?: boolean;
   children: React.ReactNode;
-  href?: string;
-  onClick?: () => void;
-  className?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
-  children,
-  href,
-  onClick,
+  fullWidth = false,
   className,
+  children,
+  ...props
 }) => {
-  const buttonClass = `${styles.button} ${styles[variant]} ${className || ''}`;
-
-  if (href) {
-    return (
-      <a href={href} className={buttonClass} onClick={onClick}>
-        {children}
-      </a>
-    );
-  }
-
   return (
-    <button className={buttonClass} onClick={onClick}>
+    <button
+      className={`${styles.button} ${styles[variant]} ${fullWidth ? styles.fullWidth : ''} ${className || ''}`}
+      {...props}
+    >
       {children}
     </button>
   );
