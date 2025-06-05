@@ -81,7 +81,11 @@ export const TodoList: React.FC = () => {
             onChange={handleInputChange}
             placeholder="Add a description..."
           />
-          <Button type="submit" fullWidth>
+          <Button 
+            type="submit" 
+            fullWidth 
+            disabled={!newTask.title.trim() && !newTask.description.trim()}
+          >
             Add Task
           </Button>
         </form>
