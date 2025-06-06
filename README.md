@@ -1,10 +1,11 @@
 # Atomic Design Todo List
 
 A modern Todo List application built with Next.js, TypeScript, and Atomic Design principles.
+Obs.: I particulary enjoy using the atomic approach because it favors the separation of concerns in providing a more granular way of doing it on UI development wich can be very challenging. 
 
 ## Atomic Design Implementation
 
-The application follows the Atomic Design methodology, breaking down the UI into five distinct levels:
+Here is a breakdown of the atomic design components used in this app:
 
 ### Atoms
 - **Box**: A flexible container component for layout management
@@ -35,6 +36,11 @@ The application follows the Atomic Design methodology, breaking down the UI into
 ### Pages
 - **Home**: Implements the TodoTemplate and serves as the main entry point
 
+### Styling
+I did choose the sass pre-processor for css because this is the one I'm more familiar with and usually is faster for setting up but I'm very familiar with UI libraries as well. 
+
+
+
 ## Features
 
 - Add, edit, and delete tasks
@@ -48,7 +54,7 @@ The application follows the Atomic Design methodology, breaking down the UI into
 
 ## Technical Stack
 
-- Next.js 14
+- Next.js 14 (I did pick the next framework also because its speed to lifting up a typescript front-end project )
 - TypeScript
 - SCSS Modules
 - Atomic Design methodology
@@ -110,7 +116,7 @@ app/
 4. **Local Storage**: Custom hook for data persistence
 5. **Testing**: Jest and React Testing Library for component testing
 6. **Animations**: CSS animations for smooth task transitions
-7. **Responsive Design**: Mobile-first approach with flexible layouts
+7. **Responsive Design**: Mobile-first approach with flexible layouts, although we can see not much of the css breakpoints, this actually goes because of the design style, I decided to have a wide component for containing the form and the content so it can have less effort to modifying across diferent viewports sizes 
 
 ## Testing
 
