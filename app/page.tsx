@@ -1,7 +1,5 @@
-import { TodoList } from './components/organisms/TodoList/TodoList';
+import { Home } from './components/pages/Home';
 
-export default function Home() {
-  return (
-    <TodoList />
-  );
+export default function Page() {
+  return <Home />;
 }

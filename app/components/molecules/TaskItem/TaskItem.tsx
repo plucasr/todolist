@@ -1,20 +1,20 @@
-"use client"
-import React, { useState, KeyboardEvent, ChangeEvent } from 'react';
-import { Checkbox } from '../../atoms/Checkbox/Checkbox';
-import { Input } from '../../atoms/Input/Input';
-import styles from './TaskItem.module.scss';
+"use client";
+import React, { useState, KeyboardEvent, ChangeEvent } from "react";
+import { Checkbox } from "../../atoms/Checkbox/Checkbox";
+import { Input } from "../../atoms/Input/Input";
+import styles from "./TaskItem.module.scss";
 
 export interface Task {
   id: string;
   title: string;
   description: string;
   completed: boolean;
-  status: 'pending' | 'in-progress' | 'completed';
+  status: "pending" | "in-progress" | "completed";
 }
 
 interface TaskItemProps {
   task: Task;
-  onStatusChange: (id: string, status: Task['status']) => void;
+  onStatusChange: (id: string, status: Task["status"]) => void;
   onDelete: (id: string) => void;
   onEdit: (id: string, title: string, description: string) => void;
 }
@@ -36,28 +36,28 @@ export const TaskItem: React.FC<TaskItemProps> = ({
     setIsEditing(!isEditing);
   };
 
-  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleEdit();
-    }
-  };
-
   return (
-    <div className={`${styles.taskItem} ${task.status === 'completed' ? styles.completed : ''}`}>
+    <div
+      className={`${styles.taskItem} ${
+        task.status === "completed" ? styles.completed : ""
+      }`}
+    >
       <div className={styles.taskContent}>
         {isEditing ? (
           <div className={styles.editForm}>
             <Input
               value={editTitle}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setEditTitle(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setEditTitle(e.target.value)
+              }
               placeholder="Task title"
               autoFocus
             />
             <Input
               value={editDescription}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setEditDescription(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setEditDescription(e.target.value)
+              }
               placeholder="Task description"
             />
           </div>
@@ -70,8 +70,10 @@ export const TaskItem: React.FC<TaskItemProps> = ({
       </div>
       <div className={styles.taskActions}>
         <Checkbox
-          checked={task.status === 'completed'}
-          onChange={(checked) => onStatusChange(task.id, checked ? 'completed' : 'in-progress')}
+          checked={task.status === "completed"}
+          onChange={(checked) =>
+            onStatusChange(task.id, checked ? "completed" : "in-progress")
+          }
           id={`task-${task.id}`}
           label=""
         />
@@ -80,7 +82,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({
           className={styles.editButton}
           aria-label={isEditing ? "Save task" : "Edit task"}
         >
-          {isEditing ? '✓' : '✎'}
+          {isEditing ? "✓" : "✎"}
         </button>
         <button
           onClick={() => onDelete(task.id)}
@@ -92,4 +94,4 @@ export const TaskItem: React.FC<TaskItemProps> = ({
       </div>
     </div>
   );
-}; 
+};

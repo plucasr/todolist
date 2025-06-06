@@ -7,39 +7,44 @@ A modern Todo List application built with Next.js, TypeScript, and Atomic Design
 The application follows the Atomic Design methodology, breaking down the UI into five distinct levels:
 
 ### Atoms
-- **Checkbox**: A basic input component for task completion status
-- **Button**: Reusable button component for actions
-- **Input**: Basic text input component
+- **Box**: A flexible container component for layout management
+- **Button**: Reusable button component with variants
+- **Input**: Text input component with label and error states
+- **Textarea**: Multi-line text input component
+- **Checkbox**: Task completion toggle with custom styling
 
 ### Molecules
 - **TaskItem**: Combines atoms to create a task display unit with:
-  - Title and description
+  - Title and description inputs
   - Completion checkbox
   - Edit and delete buttons
+  - Status management
 
 ### Organisms
 - **TodoList**: Combines molecules to create the main task management interface:
-  - Task input form
+  - Task input form with title and description
   - List of TaskItems
-  - Task management logic
+  - Task management logic (add, edit, delete, status change)
 
 ### Templates
-- The application uses a simple template structure with:
-  - Header
-  - Main content area
-  - Consistent layout across pages
+- **TodoTemplate**: Defines the page layout with:
+  - Header with title and description
+  - Main content area for TodoList
+  - Consistent spacing and styling
 
 ### Pages
-- **Home**: The main page that implements the template and includes the TodoList organism
+- **Home**: Implements the TodoTemplate and serves as the main entry point
 
 ## Features
 
 - Add, edit, and delete tasks
 - Mark tasks as completed
+- Task status management
 - Persistent storage using localStorage
 - Responsive design
 - Smooth animations and transitions
 - TypeScript for type safety
+- Unit tests with Jest and React Testing Library
 
 ## Technical Stack
 
@@ -47,6 +52,8 @@ The application follows the Atomic Design methodology, breaking down the UI into
 - TypeScript
 - SCSS Modules
 - Atomic Design methodology
+- Jest + React Testing Library
+- ESLint
 
 ## Development
 
@@ -56,6 +63,9 @@ npm install
 
 # Run development server
 npm run dev
+
+# Run tests
+npm test
 
 # Build for production
 npm run build
@@ -70,57 +80,63 @@ npm start
 app/
 ├── components/
 │   ├── atoms/
+│   │   ├── Box/
 │   │   ├── Button/
+│   │   ├── Input/
+│   │   ├── Textarea/
 │   │   └── Checkbox/
 │   ├── molecules/
 │   │   └── TaskItem/
-│   └── organisms/
-│       └── TodoList/
-├── pages/
-│   └── Home/
+│   ├── organisms/
+│   │   └── TodoList/
+│   ├── templates/
+│   │   └── TodoTemplate/
+│   └── pages/
+│       └── Home/
 ├── styles/
 │   ├── _variables.scss
-│   └── base.scss
+│   └── globals.scss
+├── hooks/
+│   └── useLocalStorageState.ts
 └── types/
     └── task.ts
 ```
 
 ## Design Decisions
 
-1. **Atomic Design**: Chosen for its systematic approach to component development and reusability.
-2. **TypeScript**: Implemented for type safety and better developer experience.
-3. **SCSS Modules**: Used for scoped styling and better organization.
-4. **Local Storage**: Implemented for data persistence without backend requirements.
-5. **Responsive Design**: Ensures the application works well on all device sizes.
+1. **Atomic Design**: Implemented for systematic component development and reusability
+2. **TypeScript**: Used throughout for type safety and better developer experience
+3. **SCSS Modules**: Scoped styling with variables for consistency
+4. **Local Storage**: Custom hook for data persistence
+5. **Testing**: Jest and React Testing Library for component testing
+6. **Animations**: CSS animations for smooth task transitions
+7. **Responsive Design**: Mobile-first approach with flexible layouts
+
+## Testing
+
+The application includes unit tests for components using Jest and React Testing Library. Tests focus on:
+- Component rendering
+- User interactions
+- State management
+- Form validation
+
+Run tests with:
+```bash
+npm test
+```
 
 ## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Run development server: `npm run dev`
+4. Open [http://localhost:3000](http://localhost:3000)
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Atomic Design Methodology](https://bradfrost.com/blog/post/atomic-web-design/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 
 ## Deploy on Vercel
 

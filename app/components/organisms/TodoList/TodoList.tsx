@@ -29,17 +29,18 @@ export const TodoList: React.FC = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (newTask.title.trim()) {
-      const task: Task = {
-        id: Date.now().toString(),
-        title: newTask.title,
-        description: newTask.description,
-        completed: false,
-        status: "pending",
-      };
-      setTasks((prev: Task[]) => [...prev, task]);
-      setNewTask({ title: "", description: "" });
+    if (!newTask.title.trim()) {
+      return;
     }
+    const task: Task = {
+      id: Date.now().toString(),
+      title: newTask.title,
+      description: newTask.description,
+      completed: false,
+      status: "pending",
+    };
+    setTasks((prev: Task[]) => [...prev, task]);
+    setNewTask({ title: "", description: "" });
   };
 
   const handleStatusChange = (id: string, status: Task["status"]) => {
